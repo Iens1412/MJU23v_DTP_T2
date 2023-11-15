@@ -170,7 +170,11 @@ namespace MJU23v_DTP_T2
             {
                 Console.WriteLine($"Format exception: {ex.Message}");
             }
-            // FIXME: An unexpected exception occurred.
+            catch (Exception ex)
+            {
+                Console.WriteLine($"okänd exception hänt: {ex.Message}");
+            }
+            
         }
 
         private static string Save(string filename, string[] parts)
