@@ -220,31 +220,35 @@ namespace MJU23v_DTP_T2
 
         private static string Load(string filename, string[] parts)
         {
-            if (parts.Length == 2)
+            try
             {
-                filename = $@"..\..\..\links\{parts[1]}";
-            }
-            if (!File.Exists(filename))
-            {
-                Console.WriteLine("filen finns inte. snälla skriv in filnamn som finns i katalog links.");
-                return filename;
-            }
 
-            links = new List<Link>();
-            using (StreamReader streamReader = new StreamReader(filename))
-            {
-                int i = 0;
-                string line = streamReader.ReadLine();
-                while (line != null)
+
+                if (parts.Length == 2)
                 {
-                    Console.WriteLine(line);
-                    Link L = new Link(line);
-                    links.Add(L);
-                    line = streamReader.ReadLine();
+                    filename = $@"..\..\..\links\{parts[1]}";
                 }
-            }
-            // FIXME: System.IO.FileNotFoundException: Could not find file.
-            // FIXME: An unexpected exception occurred.
+                if (!File.Exists(filename))
+                {
+                    Console.WriteLine("filen finns inte. snälla skriv in filnamn som finns i katalog links.");
+                    return filename;
+                }
+
+                links = new List<Link>();
+                using (StreamReader streamReader = new StreamReader(filename))
+                {
+                    int i = 0;
+                    string line = streamReader.ReadLine();
+                    while (line != null)
+                    {
+                        Console.WriteLine(line);
+                        Link L = new Link(line);
+                        links.Add(L);
+                        line = streamReader.ReadLine();
+                    }
+                }
+            } catch (Exception ex) { Console.WriteLine("error: " + ex.Message); }
+
             return filename;
         }
 
