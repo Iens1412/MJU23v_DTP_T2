@@ -137,33 +137,39 @@ namespace MJU23v_DTP_T2
 
         private static void open(string[] parts)
         {
-            if (parts[1] == "grupp")
+            try
             {
-                foreach (Link L in links)
+
+                if (parts[1] == "grupp")
                 {
-                    if (L.group == parts[2])
+                    foreach (Link L in links)
                     {
-                        L.OpenLink();
+                        if (L.group == parts[2])
+                        {
+                            L.OpenLink();
+                        }
                     }
                 }
-            }
-            else if (parts[1] == "länk")
-            {
-                if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                else if (parts[1] == "länk")
                 {
-                    links[index].OpenLink();
+                    if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                    {
+                        links[index].OpenLink();
+                    }
+                    else
+                    {
+                        Console.WriteLine("fel index, försöka igen med rätt index");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("fel index, försöka igen med rätt index");
+                    Console.WriteLine($"Okänt kommando: '{parts[1]}'");
                 }
             }
-            else
+            catch (FormatException ex)
             {
-                Console.WriteLine($"Okänt kommando: '{parts[1]}'");
+                Console.WriteLine($"Format exception: {ex.Message}");
             }
-            // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
-            // FIXME: System.FormatException: Input string was not in a correct format.
             // FIXME: An unexpected exception occurred.
         }
 
