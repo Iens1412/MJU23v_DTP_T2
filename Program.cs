@@ -76,23 +76,7 @@ namespace MJU23v_DTP_T2
             }
             else if (command == "ladda")
             {
-                if (parts.Length == 2)
-                {
-                    filename = $@"..\..\..\links\{parts[1]}";
-                }
-                links = new List<Link>();
-                using (StreamReader streamReader = new StreamReader(filename))
-                {
-                    int i = 0;
-                    string line = streamReader.ReadLine();
-                    while (line != null)
-                    {
-                        Console.WriteLine(line);
-                        Link L = new Link(line);
-                        links.Add(L);
-                        line = streamReader.ReadLine();
-                    }
-                }
+                filename = Load(filename, parts);
             }
             else if (command == "lista")
             {
@@ -158,6 +142,29 @@ namespace MJU23v_DTP_T2
             else
             {
                 Console.WriteLine("Okänt kommando: '{command}'");
+            }
+
+            return filename;
+        }
+
+        private static string Load(string filename, string[] parts)
+        {
+            if (parts.Length == 2)
+            {
+                filename = $@"..\..\..\links\{parts[1]}";
+            }
+            links = new List<Link>();
+            using (StreamReader streamReader = new StreamReader(filename))
+            {
+                int i = 0;
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    Console.WriteLine(line);
+                    Link L = new Link(line);
+                    links.Add(L);
+                    line = streamReader.ReadLine();
+                }
             }
 
             return filename;
