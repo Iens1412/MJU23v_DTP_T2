@@ -254,19 +254,22 @@ namespace MJU23v_DTP_T2
 
         private static void LoadFromFile(string filename)
         {
-            using (StreamReader streamReader = new StreamReader(filename))
+            try
             {
-                int i = 0;
-                string line = streamReader.ReadLine();
-                while (line != null)
+                using (StreamReader streamReader = new StreamReader(filename))
                 {
-                    Console.WriteLine(line);
-                    Link L = new Link(line);
-                    L.Print(i++);
-                    links.Add(L);
-                    line = streamReader.ReadLine();
+                    int i = 0;
+                    string line = streamReader.ReadLine();
+                    while (line != null)
+                    {
+                        Console.WriteLine(line);
+                        Link L = new Link(line);
+                        L.Print(i++);
+                        links.Add(L);
+                        line = streamReader.ReadLine();
+                    }
                 }
-            }
+            }catch (Exception ex) { Console.WriteLine(ex.Message); }
         }
     }
 }
