@@ -68,6 +68,7 @@ namespace MJU23v_DTP_T2
             if (command == "sluta")
             {
                 Console.WriteLine("Hej då! Välkommen åter!");
+                Environment.Exit(0);
             }
             else if (command == "hjälp")
             {
@@ -94,7 +95,7 @@ namespace MJU23v_DTP_T2
             }
             else if (command == "ta")
             {
-                if (parts[1] == "bort")
+                if (parts[1] == "bort")  //FIXME: System.FormatException: Input string was not in a correct format
                 {
                     links.RemoveAt(Int32.Parse(parts[2]));
                 }
@@ -125,8 +126,8 @@ namespace MJU23v_DTP_T2
             }
             else if (parts[1] == "länk")
             {
-                int ix = Int32.Parse(parts[2]);
-                links[ix].OpenLink();
+                int index = Int32.Parse(parts[2]);
+                links[index - 1].OpenLink();
             }
         }
 
@@ -157,16 +158,16 @@ namespace MJU23v_DTP_T2
             Console.Write("  ange namn: ");
             string name = Console.ReadLine();
             Console.Write("  ange beskrivning: ");
-            string descr = Console.ReadLine();
+            string info = Console.ReadLine();
             Console.Write("  ange länk: ");
             string link = Console.ReadLine();
-            Link newLink = new Link(category, group, name, descr, link);
+            Link newLink = new Link(category, group, name, info, link);
             links.Add(newLink);
         }
 
         private static string Load(string filename, string[] parts)
         {
-            if (parts.Length == 2)
+            if (parts.Length == 2)   //FIXME: System.IO.FileNotFoundException
             {
                 filename = $@"..\..\..\links\{parts[1]}";
             }
