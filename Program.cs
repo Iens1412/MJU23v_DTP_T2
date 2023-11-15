@@ -65,65 +65,70 @@ namespace MJU23v_DTP_T2
 
         private static string HandelCommand(string filename, string[] parts, string command)
         {
-            if (command == "sluta")
+            try
             {
-                Console.WriteLine("Hej då! Välkommen åter!");
-                Environment.Exit(0);
-            }
-            else if (command == "hjälp")
-            {
-                Console.WriteLine("hjälp                    - skriv ut den här hjälpen");
-                Console.WriteLine("sluta                    - avsluta programmet");
-                Console.WriteLine("ladda /filnamn/          - ladda ned listan från filen du väljer");
-                Console.WriteLine("lista                    - lista innehållet på skärman");
-                Console.WriteLine("ny                       - skapa nytt objekt");
-                Console.WriteLine("spara /filnamn/          - spara listan till filen du väljer");
-                Console.WriteLine("ta bort /nummer/         - tabort en objekt från listan, nummer du skriver är nummret för obektet du vill ta bort");
-                Console.WriteLine("öppna grupp /gruppnamn/  - öppna länker eller länken du vill");
-                Console.WriteLine("öppna länk /obektnummer/ - öppna länken du vill genom objektnummer vilket står för vilken länk du vill öppna");
-            }
-            else if (command == "ladda") 
-            {
-                filename = Load(filename, parts);
-            }
-            else if (command == "lista")
-            {
-                int i = 0;
-                foreach (Link L in links)
-                    L.Print(i++);
-            }
-            else if (command == "ny")
-            {
-                Ny();
-            }
-            else if (command == "spara")
-            {
-                filename = Save(filename, parts);
-            }
-            else if (command == "ta")
-            {
-                if (parts.Length >= 3 && parts[1] == "bort")
+
+
+                if (command == "sluta")
                 {
-                    if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                    Console.WriteLine("Hej då! Välkommen åter!");
+                    Environment.Exit(0);
+                }
+                else if (command == "hjälp")
+                {
+                    Console.WriteLine("hjälp                    - skriv ut den här hjälpen");
+                    Console.WriteLine("sluta                    - avsluta programmet");
+                    Console.WriteLine("ladda /filnamn/          - ladda ned listan från filen du väljer");
+                    Console.WriteLine("lista                    - lista innehållet på skärman");
+                    Console.WriteLine("ny                       - skapa nytt objekt");
+                    Console.WriteLine("spara /filnamn/          - spara listan till filen du väljer");
+                    Console.WriteLine("ta bort /nummer/         - tabort en objekt från listan, nummer du skriver är nummret för obektet du vill ta bort");
+                    Console.WriteLine("öppna grupp /gruppnamn/  - öppna länker eller länken du vill");
+                    Console.WriteLine("öppna länk /obektnummer/ - öppna länken du vill genom objektnummer vilket står för vilken länk du vill öppna");
+                }
+                else if (command == "ladda")
+                {
+                    filename = Load(filename, parts);
+                }
+                else if (command == "lista")
+                {
+                    int i = 0;
+                    foreach (Link L in links)
+                        L.Print(i++);
+                }
+                else if (command == "ny")
+                {
+                    Ny();
+                }
+                else if (command == "spara")
+                {
+                    filename = Save(filename, parts);
+                }
+                else if (command == "ta")
+                {
+                    if (parts.Length >= 3 && parts[1] == "bort")
                     {
-                        links.RemoveAt(index);
-                        Console.WriteLine($"tog bort {index}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("fel index, försöka igen med rätt index");
+                        if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                        {
+                            links.RemoveAt(index);
+                            Console.WriteLine($"tog bort {index}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("fel index, försöka igen med rätt index");
+                        }
                     }
                 }
-            }
-            else if (command == "öppna") 
-            {               
-                open(parts);
-            }
-            else
-            {
-                Console.WriteLine("Okänt kommando: '{command}'");
-            }
-            // FIXME: System.FormatException: Input string was not in a correct format.
+                else if (command == "öppna")
+                {
+                    open(parts);
+                }
+                else
+                {
+                    Console.WriteLine("Okänt kommando: '{command}'");
+                }
+            }catch (System.FormatException e) {  Console.WriteLine(e.ToString()); }
+            
             // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
             // FIXME: An unexpected exception occurred.
 
