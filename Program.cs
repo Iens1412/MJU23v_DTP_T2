@@ -125,7 +125,7 @@ namespace MJU23v_DTP_T2
                 }
                 else
                 {
-                    Console.WriteLine("Okänt kommando: '{command}'");
+                    Console.WriteLine($"Okänt kommando: '{command}'");
                 }
             }catch (System.FormatException e) {  Console.WriteLine(e.ToString()); }
             catch (System.IndexOutOfRangeException e ) { Console.WriteLine(e.ToString());}
@@ -220,10 +220,16 @@ namespace MJU23v_DTP_T2
 
         private static string Load(string filename, string[] parts)
         {
-            if (parts.Length == 2)   //FIXME: System.IO.FileNotFoundException: Could not find file
+            if (parts.Length == 2)
             {
                 filename = $@"..\..\..\links\{parts[1]}";
             }
+            if (!File.Exists(filename))
+            {
+                Console.WriteLine("filen finns inte. snälla skriv in filnamn som finns i katalog links.");
+                return filename;
+            }
+
             links = new List<Link>();
             using (StreamReader streamReader = new StreamReader(filename))
             {
