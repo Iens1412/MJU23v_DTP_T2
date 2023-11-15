@@ -82,7 +82,7 @@ namespace MJU23v_DTP_T2
                 Console.WriteLine("öppna grupp /gruppnamn/  - öppna länker eller länken du vill");
                 Console.WriteLine("öppna länk /obektnummer/ - öppna länken du vill genom objektnummer vilket står för vilken länk du vill öppna");
             }
-            else if (command == "ladda")
+            else if (command == "ladda") 
             {
                 filename = Load(filename, parts);
             }
@@ -101,20 +101,23 @@ namespace MJU23v_DTP_T2
                 filename = Save(filename, parts);
             }
             else if (command == "ta")
-            {
-                if (parts[1] == "bort")  //FIXME: System.FormatException: Input string was not in a correct format
+            {            
+                if (parts[1] == "bort")
                 {
                     links.RemoveAt(Int32.Parse(parts[2]));
                 }
             }
-            else if (command == "öppna")
-            {
+            else if (command == "öppna") 
+            {               
                 open(parts);
             }
             else
             {
                 Console.WriteLine("Okänt kommando: '{command}'");
             }
+            // FIXME: System.FormatException: Input string was not in a correct format.
+            // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+            // FIXME: An unexpected exception occurred.
 
             return filename;
         }
@@ -133,9 +136,13 @@ namespace MJU23v_DTP_T2
             }
             else if (parts[1] == "länk")
             {
+                // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
                 int index = Int32.Parse(parts[2]);
                 links[index - 1].OpenLink();
             }
+            // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
+            // FIXME: System.FormatException: Input string was not in a correct format.
+            // FIXME: An unexpected exception occurred.
         }
 
         private static string Save(string filename, string[] parts)
@@ -151,6 +158,7 @@ namespace MJU23v_DTP_T2
                     streamWriter.WriteLine(L.ToString());
                 }
             }
+            // FIXME: An unexpected exception occurred.
 
             return filename;
         }
@@ -174,7 +182,7 @@ namespace MJU23v_DTP_T2
 
         private static string Load(string filename, string[] parts)
         {
-            if (parts.Length == 2)   //FIXME: System.IO.FileNotFoundException
+            if (parts.Length == 2)   //FIXME: System.IO.FileNotFoundException: Could not find file
             {
                 filename = $@"..\..\..\links\{parts[1]}";
             }
@@ -191,7 +199,8 @@ namespace MJU23v_DTP_T2
                     line = streamReader.ReadLine();
                 }
             }
-
+            // FIXME: System.IO.FileNotFoundException: Could not find file.
+            // FIXME: An unexpected exception occurred.
             return filename;
         }
 
