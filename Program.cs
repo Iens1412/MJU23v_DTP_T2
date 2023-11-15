@@ -128,8 +128,8 @@ namespace MJU23v_DTP_T2
                     Console.WriteLine("Okänt kommando: '{command}'");
                 }
             }catch (System.FormatException e) {  Console.WriteLine(e.ToString()); }
+            catch (System.IndexOutOfRangeException e ) { Console.WriteLine(e.ToString());}
             
-            // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
             // FIXME: An unexpected exception occurred.
 
             return filename;
