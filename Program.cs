@@ -129,8 +129,7 @@ namespace MJU23v_DTP_T2
                 }
             }catch (System.FormatException e) {  Console.WriteLine(e.ToString()); }
             catch (System.IndexOutOfRangeException e ) { Console.WriteLine(e.ToString());}
-            
-            // FIXME: An unexpected exception occurred.
+            catch (Exception e) { Console.WriteLine(e.ToString()); }           
 
             return filename;
         }
