@@ -78,8 +78,8 @@ namespace MJU23v_DTP_T2
                 Console.WriteLine("lista           - lista innehållet på skärman");
                 Console.WriteLine("ny              - skapa nytt objekt");
                 Console.WriteLine("spara           - spara listan till filen du väljer");
-                Console.WriteLine();
-                Console.WriteLine();
+                Console.WriteLine("ta bort         - tabort en objekt från listan");
+                Console.WriteLine("öppna           - öppna länker eller länken du användar");
             }
             else if (command == "ladda")
             {
