@@ -129,7 +129,8 @@ namespace MJU23v_DTP_T2
                 }
             }catch (System.FormatException e) {  Console.WriteLine(e.ToString()); }
             catch (System.IndexOutOfRangeException e ) { Console.WriteLine(e.ToString());}
-            catch (Exception e) { Console.WriteLine(e.ToString()); }           
+            catch (Exception e) { Console.WriteLine(e.ToString()); }
+           
 
             return filename;
         }
@@ -148,9 +149,18 @@ namespace MJU23v_DTP_T2
             }
             else if (parts[1] == "länk")
             {
-                // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
-                int index = Int32.Parse(parts[2]);
-                links[index - 1].OpenLink();
+                if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                {
+                    links[index].OpenLink();
+                }
+                else
+                {
+                    Console.WriteLine("fel index, försöka igen med rätt index");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Okänt kommando: '{parts[1]}'");
             }
             // FIXME: System.IndexOutOfRangeException: Index was outside the bounds of the array.
             // FIXME: System.FormatException: Input string was not in a correct format.
