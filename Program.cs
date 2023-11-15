@@ -101,21 +101,7 @@ namespace MJU23v_DTP_T2
             }
             else if (command == "öppna")
             {
-                if (parts[1] == "grupp")
-                {
-                    foreach (Link L in links)
-                    {
-                        if (L.group == parts[2])
-                        {
-                            L.OpenLink();
-                        }
-                    }
-                }
-                else if (parts[1] == "länk")
-                {
-                    int ix = Int32.Parse(parts[2]);
-                    links[ix].OpenLink();
-                }
+                open(parts);
             }
             else
             {
@@ -123,6 +109,25 @@ namespace MJU23v_DTP_T2
             }
 
             return filename;
+        }
+
+        private static void open(string[] parts)
+        {
+            if (parts[1] == "grupp")
+            {
+                foreach (Link L in links)
+                {
+                    if (L.group == parts[2])
+                    {
+                        L.OpenLink();
+                    }
+                }
+            }
+            else if (parts[1] == "länk")
+            {
+                int ix = Int32.Parse(parts[2]);
+                links[ix].OpenLink();
+            }
         }
 
         private static string Save(string filename, string[] parts)
