@@ -49,19 +49,7 @@ namespace MJU23v_DTP_T2
         static void Main(string[] args)
         {
             string filename = @"..\..\..\links\links.lis";
-            using (StreamReader streamReader = new StreamReader(filename))
-            {
-                int i = 0;
-                string line = streamReader.ReadLine();
-                while (line != null)
-                {
-                    Console.WriteLine(line);
-                    Link L = new Link(line);
-                    L.Print(i++);
-                    links.Add(L);
-                    line = streamReader.ReadLine();
-                }
-            }
+            LoadFromFile(filename);
             Console.WriteLine("Välkommen till länklistan! Skriv 'hjälp' för hjälp!");
             do
             {
@@ -128,7 +116,7 @@ namespace MJU23v_DTP_T2
                     }
                     using (StreamWriter streamWriter = new StreamWriter(filename))
                     {
-                        foreach(Link L in links)
+                        foreach (Link L in links)
                         {
                             streamWriter.WriteLine(L.ToString());
                         }
@@ -164,6 +152,23 @@ namespace MJU23v_DTP_T2
                     Console.WriteLine("Okänt kommando: '{command}'");
                 }
             } while (true);
+        }
+
+        private static void LoadFromFile(string filename)
+        {
+            using (StreamReader streamReader = new StreamReader(filename))
+            {
+                int i = 0;
+                string line = streamReader.ReadLine();
+                while (line != null)
+                {
+                    Console.WriteLine(line);
+                    Link L = new Link(line);
+                    L.Print(i++);
+                    links.Add(L);
+                    line = streamReader.ReadLine();
+                }
+            }
         }
     }
 }
