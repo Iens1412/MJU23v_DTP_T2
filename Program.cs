@@ -101,10 +101,18 @@ namespace MJU23v_DTP_T2
                 filename = Save(filename, parts);
             }
             else if (command == "ta")
-            {            
-                if (parts[1] == "bort")
+            {
+                if (parts.Length >= 3 && parts[1] == "bort")
                 {
-                    links.RemoveAt(Int32.Parse(parts[2]));
+                    if (int.TryParse(parts[2], out int index) && index >= 0 && index <= links.Count - 1)
+                    {
+                        links.RemoveAt(index);
+                        Console.WriteLine($"tog bort {index}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("fel index, försöka igen med rätt index");
+                    }
                 }
             }
             else if (command == "öppna") 
