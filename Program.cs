@@ -179,18 +179,24 @@ namespace MJU23v_DTP_T2
 
         private static string Save(string filename, string[] parts)
         {
-            if (parts.Length == 2)
+            try
             {
-                filename = $@"..\..\..\links\{parts[1]}";
-            }
-            using (StreamWriter streamWriter = new StreamWriter(filename))
-            {
-                foreach (Link L in links)
+                if (parts.Length == 2)
                 {
-                    streamWriter.WriteLine(L.ToString());
+                    filename = $@"..\..\..\links\{parts[1]}";
+                }
+                using (StreamWriter streamWriter = new StreamWriter(filename))
+                {
+                    foreach (Link L in links)
+                    {
+                        streamWriter.WriteLine(L.ToString());
+                    }
                 }
             }
-            // FIXME: An unexpected exception occurred.
+            catch (Exception ex)
+            {
+                Console.WriteLine($"okänd exception hänt: {ex.Message}");
+            }
 
             return filename;
         }
