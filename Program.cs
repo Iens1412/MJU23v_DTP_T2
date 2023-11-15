@@ -50,6 +50,7 @@ namespace MJU23v_DTP_T2
         {
             string filename = @"..\..\..\links\links.lis";
             LoadFromFile(filename);
+
             Console.WriteLine("Välkommen till länklistan! Skriv 'hjälp' för hjälp!");
             do
             {
@@ -57,101 +58,109 @@ namespace MJU23v_DTP_T2
                 string cmd = Console.ReadLine().Trim();
                 string[] parts = cmd.Split();
                 string command = parts[0];
-                if (command == "sluta")
+                filename = HandelCommand(filename, parts, command);
+
+            } while (true);
+        }
+
+        private static string HandelCommand(string filename, string[] parts, string command)
+        {
+            if (command == "sluta")
+            {
+                Console.WriteLine("Hej då! Välkommen åter!");
+            }
+            else if (command == "hjälp")
+            {
+                Console.WriteLine("hjälp           - skriv ut den här hjälpen");
+                Console.WriteLine("sluta           - avsluta programmet");
+            }
+            else if (command == "ladda")
+            {
+                if (parts.Length == 2)
                 {
-                    Console.WriteLine("Hej då! Välkommen åter!");
+                    filename = $@"..\..\..\links\{parts[1]}";
                 }
-                else if (command == "hjälp")
-                {
-                    Console.WriteLine("hjälp           - skriv ut den här hjälpen");
-                    Console.WriteLine("sluta           - avsluta programmet");
-                }
-                else if (command == "ladda")
-                {
-                    if (parts.Length == 2)
-                    {
-                        filename = $@"..\..\..\links\{parts[1]}";
-                    }
-                    links = new List<Link>();
-                    using (StreamReader streamReader = new StreamReader(filename))
-                    {
-                        int i = 0;
-                        string line = streamReader.ReadLine();
-                        while (line != null)
-                        {
-                            Console.WriteLine(line);
-                            Link L = new Link(line);
-                            links.Add(L);
-                            line = streamReader.ReadLine();
-                        }
-                    }
-                }
-                else if (command == "lista")
+                links = new List<Link>();
+                using (StreamReader streamReader = new StreamReader(filename))
                 {
                     int i = 0;
+                    string line = streamReader.ReadLine();
+                    while (line != null)
+                    {
+                        Console.WriteLine(line);
+                        Link L = new Link(line);
+                        links.Add(L);
+                        line = streamReader.ReadLine();
+                    }
+                }
+            }
+            else if (command == "lista")
+            {
+                int i = 0;
+                foreach (Link L in links)
+                    L.Print(i++);
+            }
+            else if (command == "ny")
+            {
+                Console.WriteLine("Skapa en ny länk:");
+                Console.Write("  ange kategori: ");
+                string category = Console.ReadLine();
+                Console.Write("  ange grupp: ");
+                string group = Console.ReadLine();
+                Console.Write("  ange namn: ");
+                string name = Console.ReadLine();
+                Console.Write("  ange beskrivning: ");
+                string descr = Console.ReadLine();
+                Console.Write("  ange länk: ");
+                string link = Console.ReadLine();
+                Link newLink = new Link(category, group, name, descr, link);
+                links.Add(newLink);
+            }
+            else if (command == "spara")
+            {
+                if (parts.Length == 2)
+                {
+                    filename = $@"..\..\..\links\{parts[1]}";
+                }
+                using (StreamWriter streamWriter = new StreamWriter(filename))
+                {
                     foreach (Link L in links)
-                        L.Print(i++);
-                }
-                else if (command == "ny")
-                {
-                    Console.WriteLine("Skapa en ny länk:");
-                    Console.Write("  ange kategori: ");
-                    string category = Console.ReadLine();
-                    Console.Write("  ange grupp: ");
-                    string group = Console.ReadLine();
-                    Console.Write("  ange namn: ");
-                    string name = Console.ReadLine();
-                    Console.Write("  ange beskrivning: ");
-                    string descr = Console.ReadLine();
-                    Console.Write("  ange länk: ");
-                    string link = Console.ReadLine();
-                    Link newLink = new Link(category, group, name, descr, link);
-                    links.Add(newLink);
-                }
-                else if (command == "spara")
-                {
-                    if (parts.Length == 2)
                     {
-                        filename = $@"..\..\..\links\{parts[1]}";
+                        streamWriter.WriteLine(L.ToString());
                     }
-                    using (StreamWriter streamWriter = new StreamWriter(filename))
+                }
+            }
+            else if (command == "ta")
+            {
+                if (parts[1] == "bort")
+                {
+                    links.RemoveAt(Int32.Parse(parts[2]));
+                }
+            }
+            else if (command == "öppna")
+            {
+                if (parts[1] == "grupp")
+                {
+                    foreach (Link L in links)
                     {
-                        foreach (Link L in links)
+                        if (L.group == parts[2])
                         {
-                            streamWriter.WriteLine(L.ToString());
+                            L.OpenLink();
                         }
                     }
                 }
-                else if (command == "ta")
+                else if (parts[1] == "länk")
                 {
-                    if (parts[1] == "bort")
-                    {
-                        links.RemoveAt(Int32.Parse(parts[2]));
-                    }
+                    int ix = Int32.Parse(parts[2]);
+                    links[ix].OpenLink();
                 }
-                else if (command == "öppna")
-                {
-                    if (parts[1] == "grupp")
-                    {
-                        foreach (Link L in links)
-                        {
-                            if (L.group == parts[2])
-                            {
-                                L.OpenLink();
-                            }
-                        }
-                    }
-                    else if (parts[1] == "länk")
-                    {
-                        int ix = Int32.Parse(parts[2]);
-                        links[ix].OpenLink();
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Okänt kommando: '{command}'");
-                }
-            } while (true);
+            }
+            else
+            {
+                Console.WriteLine("Okänt kommando: '{command}'");
+            }
+
+            return filename;
         }
 
         private static void LoadFromFile(string filename)
