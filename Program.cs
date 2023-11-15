@@ -90,17 +90,7 @@ namespace MJU23v_DTP_T2
             }
             else if (command == "spara")
             {
-                if (parts.Length == 2)
-                {
-                    filename = $@"..\..\..\links\{parts[1]}";
-                }
-                using (StreamWriter streamWriter = new StreamWriter(filename))
-                {
-                    foreach (Link L in links)
-                    {
-                        streamWriter.WriteLine(L.ToString());
-                    }
-                }
+                filename = Save(filename, parts);
             }
             else if (command == "ta")
             {
@@ -130,6 +120,23 @@ namespace MJU23v_DTP_T2
             else
             {
                 Console.WriteLine("Okänt kommando: '{command}'");
+            }
+
+            return filename;
+        }
+
+        private static string Save(string filename, string[] parts)
+        {
+            if (parts.Length == 2)
+            {
+                filename = $@"..\..\..\links\{parts[1]}";
+            }
+            using (StreamWriter streamWriter = new StreamWriter(filename))
+            {
+                foreach (Link L in links)
+                {
+                    streamWriter.WriteLine(L.ToString());
+                }
             }
 
             return filename;
