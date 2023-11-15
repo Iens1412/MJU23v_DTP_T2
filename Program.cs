@@ -74,6 +74,12 @@ namespace MJU23v_DTP_T2
             {
                 Console.WriteLine("hjälp           - skriv ut den här hjälpen");
                 Console.WriteLine("sluta           - avsluta programmet");
+                Console.WriteLine("ladda           - ladda ned listan från filen du väljer");
+                Console.WriteLine("lista           - lista innehållet på skärman");
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
             }
             else if (command == "ladda")
             {
