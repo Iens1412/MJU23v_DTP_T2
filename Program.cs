@@ -72,14 +72,15 @@ namespace MJU23v_DTP_T2
             }
             else if (command == "hjälp")
             {
-                Console.WriteLine("hjälp           - skriv ut den här hjälpen");
-                Console.WriteLine("sluta           - avsluta programmet");
-                Console.WriteLine("ladda           - ladda ned listan från filen du väljer");
-                Console.WriteLine("lista           - lista innehållet på skärman");
-                Console.WriteLine("ny              - skapa nytt objekt");
-                Console.WriteLine("spara           - spara listan till filen du väljer");
-                Console.WriteLine("ta bort         - tabort en objekt från listan");
-                Console.WriteLine("öppna           - öppna länker eller länken du användar");
+                Console.WriteLine("hjälp                    - skriv ut den här hjälpen");
+                Console.WriteLine("sluta                    - avsluta programmet");
+                Console.WriteLine("ladda /filnamn/          - ladda ned listan från filen du väljer");
+                Console.WriteLine("lista                    - lista innehållet på skärman");
+                Console.WriteLine("ny                       - skapa nytt objekt");
+                Console.WriteLine("spara /filnamn/          - spara listan till filen du väljer");
+                Console.WriteLine("ta bort /nummer/         - tabort en objekt från listan, nummer du skriver är nummret för obektet du vill ta bort");
+                Console.WriteLine("öppna grupp /gruppnamn/  - öppna länker eller länken du vill");
+                Console.WriteLine("öppna länk /obektnummer/ - öppna länken du vill genom objektnummer vilket står för vilken länk du vill öppna");
             }
             else if (command == "ladda")
             {
