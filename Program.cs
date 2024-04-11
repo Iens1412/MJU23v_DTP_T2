@@ -47,7 +47,7 @@ namespace MJU23v_DTP_T2
             }
         }
         static void Main(string[] args)
-        {
+            {
             string filename = @"..\..\..\links\links.lis";
             LoadFromFile(filename);
 
@@ -264,7 +264,7 @@ namespace MJU23v_DTP_T2
                     {
                         Console.WriteLine(line);
                         Link L = new Link(line);
-                        L.Print(i++);
+                        //L.Print(i++);
                         links.Add(L);
                         line = streamReader.ReadLine();
                     }
